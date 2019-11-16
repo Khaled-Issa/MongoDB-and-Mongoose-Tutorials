@@ -40,45 +40,26 @@ var personSchema = new Schema ({
 var Person =mongoose.model("Person",personSchema);
 
 
-// **Note**: Glitch is a real server, and in real servers interactions with
-// the db are placed in handler functions, to be called when some event happens
-// (e.g. someone hits an endpoint on your API). We'll follow the same approach
-// in these exercises. The `done()` function is a callback that tells us that
-// we can proceed after completing an asynchronous operation such as inserting,
-// searching, updating or deleting. It's following the Node convention and
-// should be called as `done(null, data)` on success, or `done(err)` on error.
-// **Warning** - When interacting with remote services, **errors may occur** !
-
-// - Example -
-// var someFunc = function(done) {
-//   ... do something (risky) ...
-//   if(error) return done(error);
-//   done(null, result);
-// };
 
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
 
 /** 3) Create and Save a Person */
 
-// Create a `document` instance using the `Person` constructor you build before.
-// Pass to the constructor an object having the fields `name`, `age`,
-// and `favoriteFoods`. Their types must be conformant to the ones in
-// the Person `Schema`. Then call the method `document.save()` on the returned
-// document instance, passing to it a callback using the Node convention.
-// This is a common pattern, all the **CRUD** methods take a callback 
-// function like this as the last argument.
-
-// - Example -
-// ...
-// person.save(function(err, data) {
-//    ...do your stuff here...
-// });
-
 var createAndSavePerson = function(done) {
   
-  done(null /*, data*/);
-
+  var Khaled = new Person({
+    name: "Khaled",
+    age: 24,
+    favoriteFoods: ["Pizza", "Steak"]
+  });
+    
+  Khaled.save(function(err, data){
+      if(err) {
+        return done(err);
+      }
+   return done(null, data);
+  });
 };
 
 /** 4) Create many People with `Model.create()` */
