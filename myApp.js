@@ -22,26 +22,22 @@ mongoose.connect(process.env.MONGO_URI);
 
 /** 2) Create a 'Person' Model */
 
-// First of all we need a **Schema**. Each schema maps to a MongoDB collection
-// and defines the shape of the documents within that collection. Schemas are
-// building block for Models. They can be nested to create complex models,
-// but in this case we'll keep things simple. A model allows you to create
-// instances of your objects, called **documents**.
 
-// Create a person having this prototype :
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+});
 
-// - Person Prototype -
-// --------------------
-// name : string [required]
-// age :  number
-// favoriteFoods : array of strings (*)
+const Schema = mongoose.Schema;
 
-// Use the mongoose basic *schema types*. If you want you can also add more
-// fields, use simple validators like `required` or `unique`, and set
-// `default` values. See the [mongoose docs](http://mongoosejs.com/docs/guide.html).
+var personSchema = new Schema ({
+  name : { type: String, required: true },
+  age : Number,
+  favoriteFoods :[String]
+});
 
-
- var Person
+var Person =mongoose.model("Person",personSchema);
 
 
 // **Note**: Glitch is a real server, and in real servers interactions with
