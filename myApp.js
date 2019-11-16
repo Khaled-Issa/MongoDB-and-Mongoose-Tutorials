@@ -9,8 +9,12 @@
 /** 1) Install & Set up mongoose */
 
 var mongoose = require('mongoose');
+var mongoDB = require('mongodb');
+
+require('dotenv').config();
 
 mongoose.connect(process.env.MONGO_URI);
+//mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
 
 
 /** # SCHEMAS and MODELS #
@@ -36,9 +40,9 @@ mongoose.connect(process.env.MONGO_URI);
 // fields, use simple validators like `required` or `unique`, and set
 // `default` values. See the [mongoose docs](http://mongoosejs.com/docs/guide.html).
 
-// <Your code here >
 
-var Person /* = <Your Model> */
+ var Person
+
 
 // **Note**: Glitch is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
