@@ -103,9 +103,9 @@ var findOneByFood = function(food, done) {
 /** 7) Use `Model.findById()` */
 
 var findPersonById = function(personId, done) {
-  Person.findById(personId,function(err, ID){
+  Person.findById(personId,function(err, done){
     if (err) return console.log(err);
-    done(null, ID);
+    done(null, done);
   });
 };
 
@@ -115,30 +115,15 @@ var findPersonById = function(personId, done) {
 
 /** 8) Classic Update : Find, Edit then Save */
 
-// In the good old days this was what you needed to do if you wanted to edit
-// a document and be able to use it somehow e.g. sending it back in a server
-// response. Mongoose has a dedicated updating method : `Model.update()`,
-// which is directly binded to the low-level mongo driver.
-// It can bulk edit many documents matching certain criteria, but it doesn't
-// pass the edited document to its callback, only a 'status' message.
-// Furthermore it makes validation difficult, because it just
-// direcly calls the mongodb driver.
-
-// Find a person by Id ( use any of the above methods ) with the parameter
-// `personId` as search key. Add "hamburger" to the list of her `favoriteFoods`
-// (you can use Array.push()). Then - **inside the find callback** - `.save()`
-// the updated `Person`.
-
-// [*] Hint: This may be tricky if in your `Schema` you declared
-// `favoriteFoods` as an `Array` without specifying the type (i.e. `[String]`).
-// In that case `favoriteFoods` defaults to `Mixed` type, and you have to
-// manually mark it as edited using `document.markModified('edited-field')`
-// (http://mongoosejs.com/docs/schematypes.html - #Mixed )
-
 var findEditThenSave = function(personId, done) {
   var foodToAdd = 'hamburger';
-  
-  done(null/*, data*/);
+   Person.findById(personId, function(err, data){
+    data.favoriteFoods.push(foodToAdd);
+    data.save(function(err, data){
+      if (err) return console.log(err); 
+      done(null, data); 
+      });  
+   });
 };
 
 /** 9) New Update : Use `findOneAndUpdate()` */
