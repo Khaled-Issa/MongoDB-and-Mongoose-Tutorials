@@ -143,31 +143,22 @@ var findAndUpdate = function(personName, done) {
 
 /** 10) Delete one Person */
 
-// Delete one person by her `_id`. You should use one of the methods
-// `findByIdAndRemove()` or `findOneAndRemove()`. They are similar to the
-// previous update methods. They pass the removed document to the cb.
-// As usual, use the function argument `personId` as search key.
-
 var removeById = function(personId, done) {
-  
-  done(null/*, data*/);
-    
+  Person.findByIdAndRemove(personId, function(err,data){
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
+
 
 /** 11) Delete many People */
 
-// `Model.remove()` is useful to delete all the documents matching given criteria.
-// Delete all the people whose name is "Mary", using `Model.remove()`.
-// Pass to it a query ducument with the "name" field set, and of course a callback.
-//
-// Note: `Model.remove()` doesn't return the removed document, but a document
-// containing the outcome of the operation, and the number of items affected.
-// Don't forget to pass it to the `done()` callback, since we use it in tests.
-
 var removeManyPeople = function(done) {
   var nameToRemove = "Mary";
-
-  done(null/*, data*/);
+  Person.remove({name: nameToRemove},function(err,data){
+    if (err) return console.log(err);
+     done(null, data);
+  });
 };
 
 /** # C[R]UD part V -  More about Queries # 
