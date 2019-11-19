@@ -102,18 +102,13 @@ var findOneByFood = function(food, done) {
 
 /** 7) Use `Model.findById()` */
 
-// When saving a document, mongodb automatically add the field `_id`,
-// and set it to a unique alphanumeric key. Searching by `_id` is an
-// extremely frequent operation, so `moongose` provides a dedicated
-// method for it. Find the (only!!) person having a certain Id,
-// using `Model.findById() -> Person`.
-// Use the function argument 'personId' as search key.
-
 var findPersonById = function(personId, done) {
-  
-  done(null/*, data*/);
-  
+  Person.findById(personId,function(err, ID){
+    if (err) return console.log(err);
+    done(null, ID);
+  });
 };
+
 
 /** # CR[U]D part III - UPDATE # 
 /*  ============================ */
