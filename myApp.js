@@ -64,17 +64,18 @@ var createAndSavePerson = function(done) {
 
 /** 4) Create many People with `Model.create()` */
 
-// Sometimes you need to create many Instances of your Models,
-// e.g. when seeding a database with initial data. `Model.create()`
-// takes an array of objects like [{name: 'John', ...}, {...}, ...],
-// as the 1st argument, and saves them all in the db.
-// Create many people using `Model.create()`, using the function argument
-// 'arrayOfPeople'.
+
+var arrayOfPeople=[
+  {name: "hussein",age: 24 ,favoriteFoods:["pizza"]},
+  {name: "hossam",age: 24, favoriteFoods:["beef"]},
+  {name: "saber",age: 23, favoriteFoods:["steak"]}
+];
 
 var createManyPeople = function(arrayOfPeople, done) {
-    
-    done(null/*, data*/);
-    
+    Person.create(arrayOfPeople, function (err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
 
 /** # C[R]UD part II - READ #
@@ -82,17 +83,13 @@ var createManyPeople = function(arrayOfPeople, done) {
 
 /** 5) Use `Model.find()` */
 
-// Find all the people having a given name, using `Model.find() -> [Person]`
-// In its simplest usage, `Model.find()` accepts a **query** document (a JSON
-// object ) as the first argument, and returns an **array** of matches.
-// It supports an extremely wide range of search options. Check it in the docs.
-// Use the function argument `personName` as search key.
-
 var findPeopleByName = function(personName, done) {
-  
-  done(null/*, data*/);
-
+  Person.find({name: personName}, function(err, personFound){
+    if (err) return console.log(err);
+    done(null, personFound);
+  });  
 };
+
 
 /** 6) Use `Model.findOne()` */
 
